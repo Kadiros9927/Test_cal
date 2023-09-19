@@ -89,27 +89,33 @@ func main() {
 	} else {
 		num1, err1 := strconv.ParseInt(expr[0], 10, 8)
 		num2, err2 := strconv.ParseInt(expr[2], 10, 8)
-		if num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10 {
-			fmt.Println("Вывод ошибки: Не правильный диапазон чисел.")
-		} else {
-			switch {
-			case err1 != nil && err2 != nil:
-				num1 = int64(romToArab(expr[0]))
-				num2 = int64(romToArab(expr[2]))
 
+		switch { // Проверка системы исчисления
+		case err1 != nil && err2 != nil:
+			num1 = int64(romToArab(expr[0]))
+			num2 = int64(romToArab(expr[2]))
+
+			if num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10 {
+				fmt.Println("Вывод ошибки: Не правильный диапазон чисел.")
+			} else {
 				_, result := mathOper(num1, num2, expr[1])
 				if result < 1 {
 					fmt.Println("Вывод ошибки: В римской системе нет отрицательных чисел.")
 				}
 				fmt.Println(arabToRom(result))
+			}
 
-			case err1 != nil && err2 == nil:
-				fmt.Println("Вывод ошибки: Используются одновременно разные системы счисления.")
-			case err1 == nil && err2 != nil:
-				fmt.Println("Вывод ошибки: Используются одновременно разные системы счисления.")
-			default:
+		case err1 != nil && err2 == nil:
+			fmt.Println("Вывод ошибки: Используются одновременно разные системы счисления.")
+		case err1 == nil && err2 != nil:
+			fmt.Println("Вывод ошибки: Используются одновременно разные системы счисления.")
+		default:
+			if num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10 {
+				fmt.Println("Вывод ошибки: Не правильный диапазон чисел.")
+			} else {
 				fmt.Println(mathOper(num1, num2, expr[1]))
 			}
 		}
+
 	}
 }
