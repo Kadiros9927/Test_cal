@@ -15,11 +15,15 @@ var romToArabMap = map[string]int8{
 	"X": 10,
 }
 var arabToRomMap = map[int64]string{
-	1:  "I",
-	4:  "IV",
-	5:  "V",
-	9:  "IX",
-	10: "X",
+	1:   "I",
+	4:   "IV",
+	5:   "V",
+	9:   "IX",
+	10:  "X",
+	40:  "XL",
+	50:  "L",
+	90:  "XC",
+	100: "C",
 }
 
 func romToArab(romNum string) int8 {
@@ -45,7 +49,7 @@ func arabToRom(result int64) string {
 
 	var romNum string
 	for result > 0 {
-		for _, key := range []int64{10, 9, 5, 4, 1} {
+		for _, key := range []int64{100, 90, 50, 40, 10, 9, 5, 4, 1} {
 			if result >= key {
 				result -= key
 				romNum += arabToRomMap[key]
